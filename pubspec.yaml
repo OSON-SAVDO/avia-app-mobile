@@ -1,0 +1,12 @@
+name: avia_app
+description: Мобильное приложение для поиска билетов
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.1.0  # Барои гирифтани маълумот аз сервер
+  intl: ^0.18.1 # Барои формат кардани асъор
