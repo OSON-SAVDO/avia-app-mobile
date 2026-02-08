@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="tg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Traveler.tj</title>
     <style>
-        body { font-family: sans-serif; margin: 0; background: #f0f2f5; padding-bottom: 60px; }
-        header { background: #0073ff; color: white; padding: 20px; text-align: center; }
-        .card { background: white; margin: 15px; padding: 15px; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); min-height: 400px; }
-        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; }
+        body { font-family: sans-serif; margin: 0; background: #f0f2f5; text-align: center; }
+        .search-box { background: white; margin: 20px; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        input { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; }
+        button { width: 95%; padding: 15px; background: #0073ff; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <header><h1>Traveler.tj</h1></header>
-    <div class="card">
-        <h3>✈️ Чиптаҳои ҳавопаймо</h3>
-        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=511059&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=avia_1"></script>
+    <h1 style="color: #0073ff;">Traveler.tj</h1>
+    
+    <div class="search-box">
+        <h3>✈️ Ҷустуҷӯи чиптаҳо</h3>
+        <form action="https://www.jetradar.com/flights/" method="get" target="_blank">
+            <input type="hidden" name="marker" value="511059"> <input type="text" name="origin" placeholder="Аз куҷо (масалан, DYU)" required>
+            <input type="text" name="destination" placeholder="Ба куҷо (масалан, MOW)" required>
+            <button type="submit">ҶУСТУҶӮ КАРДАН</button>
+        </form>
     </div>
-    <div class="nav">
-        <div onclick="location.reload()">🏠 Асосӣ</div>
-        <div>👤 Профил</div>
+
+    <div class="search-box">
+        <h3>🌍 Виҷети асосӣ (агар бор шавад):</h3>
+        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=511059&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=avia_1"></script>
     </div>
 </body>
 </html>
