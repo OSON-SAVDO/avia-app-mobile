@@ -1,11 +1,10 @@
 from flask import Flask, render_template
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 @app.route('/')
 def index():
-    # Ин файл index.html-ро аз папкаи templates мехонад
     return render_template('index.html')
 
 if __name__ == '__main__':
