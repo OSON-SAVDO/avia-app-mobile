@@ -11,76 +11,109 @@
         .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px; }
         h2 { font-size: 18px; color: #333; margin-top: 0; border-left: 4px solid #0073ff; padding-left: 10px; }
         
-        /* Менюи Профил */
+        /* Менюи поён */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000; }
         .nav-item { text-align: center; color: #555; text-decoration: none; font-size: 12px; cursor: pointer; }
-        .nav-item i { display: block; font-size: 20px; margin-bottom: 2px; }
 
-        /* Модал (Окнои Профил) */
+        /* Модали Профил */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; }
-        .modal-content { background: white; width: 80%; max-width: 400px; margin: 20% auto; padding: 25px; border-radius: 20px; text-align: left; }
-        .modal-header { font-size: 20px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        select { width: 100%; padding: 10px; margin: 10px 0 20px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px; }
-        .close-btn { background: #0073ff; color: white; border: none; padding: 10px 20px; border-radius: 10px; width: 100%; cursor: pointer; font-size: 16px; }
+        .modal-content { background: white; width: 85%; max-width: 400px; margin: 20% auto; padding: 25px; border-radius: 20px; }
+        select { width: 100%; padding: 12px; margin: 10px 0 20px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px; }
+        .save-btn { background: #0073ff; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; cursor: pointer; font-size: 16px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Traveler.tj</h1>
-    <p>Чиптаҳо, Меҳмонхонаҳо ва Саёҳатҳо</p>
+<header id="site-header">
+    <h1 id="site-title">Traveler.tj</h1>
+    <p id="site-desc">Чиптаҳо, Меҳмонхонаҳо ва Саёҳатҳо</p>
 </header>
 
 <div class="container">
     <div class="card">
-        <h2>✈️ Ҷустуҷӯи чиптаҳои арзон</h2>
-        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=МАРКЕРИ_ШУМО&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=avia_1"></script>
+        <h2 id="title-avia">✈️ Ҷустуҷӯи чиптаҳои арзон</h2>
+        <div id="avia-widget-container"></div>
     </div>
 
     <div class="card">
-        <h2>🌍 Экскурсия ва вақтхушиҳо (Klook)</h2>
-        <script charset="utf-8" src="https://tp.media/content?promo_id=2088&shmarker=МАРКЕРИ_ШУМО&type=search_widget&locale=ru&id=klook_1"></script>
+        <h2 id="title-klook">🌍 Экскурсия ва вақтхушиҳо (Klook)</h2>
+        <div id="klook-widget-container"></div>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <div class="nav-item" onclick="location.reload()">🏠<br>Асосӣ</div>
-    <div class="nav-item" onclick="toggleModal()">👤<br>Профил</div>
+    <div class="nav-item" onclick="location.reload()">🏠<br><span id="nav-home">Асосӣ</span></div>
+    <div class="nav-item" onclick="toggleModal()">👤<br><span id="nav-profile">Профил</span></div>
 </div>
 
 <div id="profileModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">Танзимоти профил</div>
-        
-        <label>Интихоби забон:</label>
-        <select id="lang">
-            <option value="tg">Тоҷикӣ</option>
+        <h3 id="modal-title">Танзимот</h3>
+        <label id="label-lang">Забон:</label>
+        <select id="lang-select">
             <option value="ru">Русский</option>
             <option value="en">English</option>
+            <option value="tg">Тоҷикӣ (Beta)</option>
         </select>
 
-        <label>Интихоби асъор:</label>
-        <select id="currency">
-            <option value="tjs">TJS (Сомонӣ)</option>
-            <option value="usd">USD (Доллар)</option>
-            <option value="eur">EUR (Евро)</option>
-            <option value="rub">RUB (Рубл)</option>
+        <label id="label-curr">Асъор:</label>
+        <select id="curr-select">
+            <option value="usd">USD</option>
+            <option value="eur">EUR</option>
+            <option value="rub">RUB</option>
         </select>
 
-        <button class="close-btn" onclick="toggleModal()">Захфра кардан</button>
+        <button class="save-btn" onclick="applySettings()">Захира кардан</button>
     </div>
 </div>
 
 <script>
+    // Рақами маркери худро ин ҷо гузоред
+    const MY_MARKER = "701004"; 
+
     function toggleModal() {
-        var modal = document.getElementById("profileModal");
+        const modal = document.getElementById("profileModal");
         modal.style.display = (modal.style.display === "block") ? "none" : "block";
     }
-    
-    // Пӯшидани модал ҳангоми пахши берун аз он
-    window.onclick = function(event) {
-        var modal = document.getElementById("profileModal");
-        if (event.target == modal) { modal.style.display = "none"; }
+
+    function applySettings() {
+        const lang = document.getElementById("lang-select").value;
+        const curr = document.getElementById("curr-select").value;
+        
+        // Захира дар браузер
+        localStorage.setItem("pref_lang", lang);
+        localStorage.setItem("pref_curr", curr);
+        
+        location.reload(); // Навсозии саҳифа барои фаъол шудани забони нав
+    }
+
+    window.onload = function() {
+        const savedLang = localStorage.getItem("pref_lang") || "ru";
+        const savedCurr = localStorage.getItem("pref_curr") || "usd";
+        
+        document.getElementById("lang-select").value = savedLang;
+        document.getElementById("curr-select").value = savedCurr;
+
+        // Тарҷумаи интерфейси сайт
+        if(savedLang === "en") {
+            document.getElementById("site-desc").innerText = "Flights, Hotels and Tours";
+            document.getElementById("title-avia").innerText = "✈️ Search Cheap Flights";
+            document.getElementById("title-klook").innerText = "🌍 Tours and Activities";
+            document.getElementById("nav-home").innerText = "Home";
+            document.getElementById("nav-profile").innerText = "Profile";
+        }
+
+        // Боркунии виҷети Aviasales бо забони интихобшуда
+        const aviaScript = document.createElement("script");
+        aviaScript.src = `https://tp.media/content?currency=${savedCurr}&promo_id=4118&shmarker=${MY_MARKER}&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${savedLang}&id=avia_1`;
+        aviaScript.charset = "utf-8";
+        document.getElementById("avia-widget-container").appendChild(aviaScript);
+
+        // Боркунии виҷети Klook бо забони интихобшуда
+        const klookScript = document.createElement("script");
+        klookScript.src = `https://tp.media/content?promo_id=2088&shmarker=${MY_MARKER}&type=search_widget&locale=${savedLang}&id=klook_1`;
+        klookScript.charset = "utf-8";
+        document.getElementById("klook-widget-container").appendChild(klookScript);
     }
 </script>
 
