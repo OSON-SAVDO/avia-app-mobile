@@ -1,7 +1,0 @@
-{
-    "name": "my-travel-site/app",
-    "description": "Simple PHP Flight Search Site",
-    "require": {
-        "php": ">=7.4"
-    }
-}
