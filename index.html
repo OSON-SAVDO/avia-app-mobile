@@ -3,118 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traveler.tj — Системаи ҷустуҷӯи чиптаҳо</title>
+    <title>Traveler.tj — Чиптаҳо ва Саёҳатҳо</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; padding-bottom: 80px; }
-        header { background: linear-gradient(135deg, #0073ff, #0056b3); color: white; padding: 35px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; padding-bottom: 80px; }
+        header { background: linear-gradient(135deg, #0073ff, #0056b3); color: white; padding: 30px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
         .container { max-width: 800px; margin: 20px auto; width: 92%; }
-        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 25px; border: 1px solid #eee; }
-        h2 { font-size: 19px; color: #0056b3; margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        h2 { font-size: 18px; color: #333; margin-top: 0; border-left: 4px solid #0073ff; padding-left: 10px; margin-bottom: 20px; }
         
-        /* Навигатсияи поён */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #ddd; box-shadow: 0 -3px 10px rgba(0,0,0,0.05); z-index: 1000; }
-        .nav-item { text-align: center; color: #555; text-decoration: none; font-size: 13px; cursor: pointer; transition: 0.3s; }
-        .nav-item:active { color: #0073ff; }
+        /* Менюи поён */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #ddd; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+        .nav-item { text-align: center; color: #555; text-decoration: none; font-size: 13px; cursor: pointer; }
 
-        /* Модали Танзимот */
+        /* Модали Профил */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 85%; max-width: 400px; margin: 15% auto; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .modal-header { font-size: 22px; font-weight: bold; margin-bottom: 20px; color: #333; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: #666; }
-        select { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; outline: none; }
-        .save-btn { background: #0073ff; color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; }
-        .save-btn:hover { background: #0056b3; }
+        .modal-content { background: white; width: 85%; max-width: 400px; margin: 20% auto; padding: 25px; border-radius: 25px; }
+        select { width: 100%; padding: 12px; margin: 10px 0 20px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; }
+        .save-btn { background: #0073ff; color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; cursor: pointer; font-size: 16px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 id="site-title">Traveler.tj</h1>
-    <p id="site-desc">Чиптаҳо, Меҳмонхонаҳо ва Саёҳатҳо</p>
+    <h1 id="txt-title">Traveler.tj</h1>
+    <p id="txt-subtitle">Чиптаҳо, Меҳмонхонаҳо ва Саёҳатҳо</p>
 </header>
 
 <div class="container">
     <div class="card">
-        <h2 id="title-avia">✈️ Чиптаҳои ҳавопаймо</h2>
-        <div id="avia-widget-container"></div>
+        <h2 id="txt-avia">✈️ Чиптаҳои ҳавопаймо</h2>
+        <div id="avia-container"></div>
     </div>
 
     <div class="card">
-        <h2 id="title-klook">🌍 Саёҳат ва вақтхушиҳо</h2>
-        <div id="klook-widget-container"></div>
+        <h2 id="txt-klook">🌍 Саёҳат ва вақтхушиҳо</h2>
+        <div id="klook-container"></div>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <div class="nav-item" onclick="location.reload()">🏠<br><span id="nav-home">Асосӣ</span></div>
-    <div class="nav-item" onclick="toggleModal()">👤<br><span id="nav-profile">Профил</span></div>
+    <div class="nav-item" onclick="location.reload()">🏠<br><span id="txt-home">Асосӣ</span></div>
+    <div class="nav-item" onclick="toggleModal()">👤<br><span id="txt-profile">Профил</span></div>
 </div>
 
 <div id="profileModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header" id="modal-title">Танзимот</div>
-        
-        <label id="label-lang">Интихоби забон:</label>
+        <h3 id="txt-settings">Танзимот</h3>
+        <label id="txt-lang">Забон:</label>
         <select id="lang-select">
             <option value="ru">Русский</option>
             <option value="en">English</option>
+            <option value="tg">Тоҷикӣ</option>
         </select>
 
-        <label id="label-curr">Интихоби асъор:</label>
+        <label id="txt-curr">Асъор:</label>
         <select id="curr-select">
             <option value="usd">USD ($)</option>
             <option value="eur">EUR (€)</option>
             <option value="rub">RUB (₽)</option>
+            <option value="tjs">TJS (Somoni)</option>
         </select>
 
-        <button class="save-btn" onclick="applySettings()" id="btn-save">Захира кардан</button>
+        <button class="save-btn" onclick="saveSettings()" id="txt-save">Захира кардан</button>
     </div>
 </div>
 
 <script>
-    // 1. МАРКЕР ВА API-И ХУДРО ИНҶО ГУЗОРЕД
+    // МУҲИМ: Маркери худро ба ҷои 123456 гузоред
     const MY_MARKER = "701004"; 
-    const MY_API_KEY = "71876b59812fee6e1539f9365e6a12dd"; 
 
     function toggleModal() {
-        const modal = document.getElementById("profileModal");
-        modal.style.display = (modal.style.display === "block") ? "none" : "block";
+        const m = document.getElementById("profileModal");
+        m.style.display = (m.style.display === "block") ? "none" : "block";
     }
 
-    function applySettings() {
-        localStorage.setItem("pref_lang", document.getElementById("lang-select").value);
-        localStorage.setItem("pref_curr", document.getElementById("curr-select").value);
-        location.reload(); 
+    function saveSettings() {
+        localStorage.setItem("lang", document.getElementById("lang-select").value);
+        localStorage.setItem("curr", document.getElementById("curr-select").value);
+        location.reload();
     }
 
     window.onload = function() {
-        const savedLang = localStorage.getItem("pref_lang") || "ru";
-        const savedCurr = localStorage.getItem("pref_curr") || "usd";
+        const L = localStorage.getItem("lang") || "ru";
+        const C = localStorage.getItem("curr") || "usd";
         
-        document.getElementById("lang-select").value = savedLang;
-        document.getElementById("curr-select").value = savedCurr;
+        document.getElementById("lang-select").value = L;
+        document.getElementById("curr-select").value = C;
 
-        // Тарҷумаи интерфейс ба забони Англисӣ
-        if(savedLang === "en") {
-            document.getElementById("site-desc").innerText = "Flights, Hotels and Tours";
-            document.getElementById("title-avia").innerText = "✈️ Cheap Flights";
-            document.getElementById("title-klook").innerText = "🌍 Tours and Activities";
-            document.getElementById("nav-home").innerText = "Home";
-            document.getElementById("nav-profile").innerText = "Profile";
-            document.getElementById("btn-save").innerText = "Save Settings";
+        // Тарҷумаи интерфейс
+        if(L === "en") {
+            document.getElementById("txt-subtitle").innerText = "Flights and Tours";
+            document.getElementById("txt-avia").innerText = "✈️ Search Flights";
+            document.getElementById("txt-klook").innerText = "🌍 Tours & Activities";
+            document.getElementById("txt-home").innerText = "Home";
+            document.getElementById("txt-profile").innerText = "Profile";
+            document.getElementById("txt-save").innerText = "Save";
+        } else if(L === "tg") {
+            document.getElementById("txt-subtitle").innerText = "Чиптаҳо ва саёҳатҳо";
+            document.getElementById("txt-avia").innerText = "✈️ Ҷустуҷӯи чиптаҳо";
         }
 
-        // Боркунии виҷети Aviasales (Чиптаҳо)
-        const aviaScript = document.createElement("script");
-        aviaScript.src = `https://tp.media/content?currency=${savedCurr}&promo_id=4118&shmarker=${MY_MARKER}&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${savedLang}&id=avia_widget`;
-        aviaScript.charset = "utf-8";
-        document.getElementById("avia-widget-container").appendChild(aviaScript);
+        // Боркунии Виҷети Aviasales (маҳз барои забони интихобшуда)
+        const s1 = document.createElement("script");
+        let v_lang = L === "tg" ? "ru" : L; // Агар тоҷикӣ бошад, виҷет русӣ мешавад
+        s1.src = `https://tp.media/content?currency=${C}&promo_id=4118&shmarker=${MY_MARKER}&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${v_lang}&id=avia_main`;
+        document.getElementById("avia-container").appendChild(s1);
 
-        // Боркунии виҷети Klook (Саёҳатҳо)
-        const klookScript = document.createElement("script");
-        klookScript.src = `https://tp.media/content?promo_id=2088&shmarker=${MY_MARKER}&type=search_widget&locale=${savedLang}&id=klook_widget`;
-        klookScript.charset = "utf-8";
-        document.getElementById("klook-widget-container").appendChild(klookScript);
+        // Боркунии Виҷети Klook
+        const s2 = document.createElement("script");
+        s2.src = `https://tp.media/content?promo_id=2088&shmarker=${MY_MARKER}&type=search_widget&locale=${v_lang}&id=klook_main`;
+        document.getElementById("klook-container").appendChild(s2);
     }
 </script>
 
