@@ -5,25 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Traveler.tj</title>
     <style>
-        body { font-family: -apple-system, sans-serif; margin: 0; background: #f4f7f9; padding-bottom: 70px; }
+        body { font-family: -apple-system, sans-serif; margin: 0; background: #f4f7f9; padding-bottom: 80px; }
         header { background: #0073ff; color: white; padding: 40px 20px 60px; text-align: center; border-radius: 0 0 30px 30px; }
         .container { padding: 0 15px; max-width: 500px; margin: auto; }
-        
-        /* Блоки ҷустуҷӯ (мисли акси 43204.jpg) */
         .search-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-top: -50px; }
-        input { width: 100%; padding: 15px; margin-top: 5px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #ddd; background: #f9fbff; box-sizing: border-box; font-size: 16px; }
-        .btn-search { width: 100%; background: #0073ff; color: white; border: none; padding: 18px; border-radius: 15px; font-size: 18px; font-weight: bold; cursor: pointer; }
-        
-        /* Блоки натиҷаҳо (мисли акси 43209.jpg) */
-        .results-card { background: white; padding: 20px; border-radius: 20px; margin-top: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); min-height: 300px; }
-        
-        /* Профил */
+        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; background: #f9fbff; box-sizing: border-box; font-size: 16px; }
+        .btn-search { width: 100%; background: #0073ff; color: white; border: none; padding: 18px; border-radius: 15px; font-size: 18px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .results-card { background: white; padding: 20px; border-radius: 20px; margin-top: 20px; min-height: 200px; }
         #profile-page { display: none; padding: 20px; background: white; border-radius: 20px; margin-top: 20px; }
-        select { width: 100%; padding: 12px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #ddd; }
-
-        /* Менюи поён */
-        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; }
-        .nav-item { text-align: center; font-size: 13px; color: #888; flex: 1; cursor: pointer; }
+        select { width: 100%; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; font-size: 16px; }
+        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
+        .nav-item { text-align: center; font-size: 14px; color: #888; cursor: pointer; flex: 1; }
         .active { color: #0073ff; font-weight: bold; }
     </style>
 </head>
@@ -37,10 +29,10 @@
 <div class="container">
     <div id="home-page">
         <div class="search-card">
-            <label id="lbl-from">Аз куҷо (масалан, DYU):</label>
-            <input type="text" id="origin" placeholder="Душанбе">
-            <label id="lbl-to">Ба куҷо (масалан, MOW):</label>
-            <input type="text" id="destination" placeholder="Москва">
+            <label id="lbl-from">Аз куҷо (Коди IATA, м: DYU):</label>
+            <input type="text" id="origin" value="DYU">
+            <label id="lbl-to">Ба куҷо (Коди IATA, м: MOW):</label>
+            <input type="text" id="destination" value="MOW">
             <button class="btn-search" onclick="loadTickets()" id="btn-text">ҶУСТУҶӮ КАРДАН</button>
         </div>
 
@@ -59,12 +51,13 @@
             <option value="ru">Русский</option>
             <option value="en">English</option>
         </select>
+
         <label id="lbl-curr">💰 Асъор:</label>
-        <select id="currSelect" onchange="updateUI()">
-            <option value="tjs">TJS</option>
-            <option value="rub">RUB</option>
-            <option value="usd">USD</option>
-            <option value="eur">EUR</option>
+        <select id="currSelect">
+            <option value="TJS">TJS (Сомонӣ)</option>
+            <option value="RUB">RUB (Рубл)</option>
+            <option value="USD">USD (Доллар)</option>
+            <option value="EUR">EUR (Евро)</option>
         </select>
     </div>
 </div>
@@ -75,12 +68,10 @@
 </div>
 
 <script>
-    const MY_MARKER = "511059"; // МАРКЕРИ ХУДРО ИНҶО ГУЗОРЕД
-
     const langMap = {
-        tg: { sub: "Чиптаҳои арзон ва ҳақиқӣ", from: "Аз куҷо:", to: "Ба куҷо:", btn: "ҶУСТУҶӮ КАРДАН", res: "📊 Натиҷаҳои парвоз:", prof: "👤 Танзимот", h: "Асосӣ", p: "Профил", loc: "ru" },
-        ru: { sub: "Дешевые и реальные билеты", from: "Откуда:", to: "Куда:", btn: "НАЙТИ БИЛЕТЫ", res: "📊 Результаты поиска:", prof: "👤 Настройки", h: "Главная", p: "Профиль", loc: "ru" },
-        en: { sub: "Cheap and real tickets", from: "From:", to: "To:", btn: "SEARCH FLIGHTS", res: "📊 Search Results:", prof: "👤 Settings", h: "Home", p: "Profile", loc: "en" }
+        tg: { sub: "Чиптаҳои арзон ва ҳақиқӣ", from: "Аз куҷо (IATA):", to: "Ба куҷо (IATA):", btn: "ҶУСТУҶӮ КАРДАН", res: "📊 Натиҷаҳои парвоз:", prof: "👤 Танзимот", h: "Асосӣ", p: "Профил", loc: "ru" },
+        ru: { sub: "Дешевые и реальные билеты", from: "Откуда (IATA):", to: "Куда (IATA):", btn: "НАЙТИ БИЛЕТЫ", res: "📊 Результаты поиска:", prof: "👤 Настройки", h: "Главная", p: "Профиль", loc: "ru" },
+        en: { sub: "Cheap and real tickets", from: "From (IATA):", to: "To (IATA):", btn: "SEARCH FLIGHTS", res: "📊 Search Results:", prof: "👤 Settings", h: "Home", p: "Profile", loc: "en" }
     };
 
     function updateUI() {
@@ -98,15 +89,20 @@
 
     function loadTickets() {
         const container = document.getElementById('tickets-container');
+        const origin = document.getElementById('origin').value;
+        const destination = document.getElementById('destination').value;
         const curr = document.getElementById('currSelect').value;
         const lang = document.getElementById('langSelect').value;
         const locale = langMap[lang].loc;
         
-        container.innerHTML = 'Боргирӣ...';
+        container.innerHTML = 'Ҷустуҷӯ давом дорад...';
         
         const script = document.createElement('script');
-        // Ин скрипт чиптаҳои ҳақиқиро нишон медиҳад
-        script.src = `https://tp.media/content?currency=${curr}&shmarker=${MY_MARKER}&type=results&locale=${locale}&id=results_main`;
+        script.charset = "utf-8";
+        script.async = true;
+        // Пайваст кардани Маркер ва маълумотҳои ҷустуҷӯ
+        script.src = `https://tp.media/content?currency=${curr}&shmarker={{ marker }}&type=results&origin=${origin}&destination=${destination}&locale=${locale}&id=results_main`;
+        
         container.innerHTML = '';
         container.appendChild(script);
     }
