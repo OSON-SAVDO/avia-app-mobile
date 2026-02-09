@@ -3,41 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traveler.tj — Ҷустуҷӯи чиптаҳо</title>
+    <title>Traveler.tj — Мисли Aviasales</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f0f2f5; padding-bottom: 80px; }
-        header { background: linear-gradient(135deg, #0073ff, #0056b3); color: white; padding: 25px 15px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; }
-        .container { max-width: 600px; margin: 0 auto; padding: 15px; }
-        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: -30px; margin-bottom: 25px; }
-        .results-card { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h2 { font-size: 18px; color: #333; margin-top: 0; margin-bottom: 15px; border-left: 4px solid #0073ff; padding-left: 10px; }
-        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-item { text-align: center; font-size: 12px; color: #666; cursor: pointer; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f0f2f5; padding-bottom: 20px; }
+        header { background: #0073ff; color: white; padding: 25px 15px; text-align: center; border-radius: 0 0 20px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .container { padding: 15px; max-width: 600px; margin: auto; }
+        .search-area { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-top: -30px; margin-bottom: 20px; }
+        .results-area { background: white; padding: 10px; border-radius: 20px; min-height: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { font-size: 18px; color: #333; margin-top: 0; display: flex; align-items: center; gap: 8px; }
+        .footer-text { text-align: center; font-size: 12px; color: #888; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0; font-size: 26px;">Traveler.tj</h1>
-    <p style="margin:5px 0 0; opacity: 0.9; font-size: 14px;">Чиптаҳои арзон ва ҳақиқӣ</p>
+    <h1 style="margin:0; font-size: 24px;">Traveler.tj</h1>
+    <p style="margin:5px 0 0; opacity: 0.9; font-size: 13px;">Ҷустуҷӯи чиптаҳо дар реҷаи зинда</p>
 </header>
 
 <div class="container">
-    <div class="card">
+    <div class="search-area">
         <h2>✈️ Ҷустуҷӯи чипта</h2>
-        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=701004&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=avia_search"></script>
+        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=511059&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=avia_search"></script>
     </div>
 
-    <div class="results-card">
-        <h2>📊 Натиҷаҳои парвоз</h2>
-        <p style="font-size: 12px; color: #888; margin-bottom: 10px;">Бағоҷ ва вақти парвоз дар зер нишон дода мешавад:</p>
-        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=701004&type=results&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=results_main"></script>
+    <div class="results-area">
+        <h2 style="padding: 10px 0 0 10px;">📊 Рӯйхати чиптаҳо:</h2>
+        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=511059&type=results&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=results_list"></script>
     </div>
-</div>
-
-<div class="nav">
-    <div class="nav-item" onclick="location.reload()">🏠<br>Асосӣ</div>
-    <div class="nav-item" onclick="alert('Маркер: 701004')">👤<br>Профил</div>
+    
+    <p class="footer-text">© 2026 Traveler.tj — Маълумот аз пойгоҳи Aviasales бор карда мешавад.</p>
 </div>
 
 </body>
