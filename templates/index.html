@@ -6,17 +6,18 @@
     <title>Traveler.tj — Системаи Ҷустуҷӯ</title>
     <style>
         body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: #f4f6f9; padding-bottom: 80px; }
-        header { background: #0073ff; color: white; padding: 20px 15px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        header { background: #0073ff; color: white; padding: 25px 15px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .container { padding: 15px; max-width: 500px; margin: auto; }
         
         /* Дизайн маҳз мисли акси 43204.jpg */
-        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: -30px; margin-bottom: 20px; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: -35px; margin-bottom: 20px; }
         .results-section { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); min-height: 300px; }
         
-        /* Саҳифаи Профил */
+        /* Саҳифаи Профил (3 забон ва 4 асъор) */
         #profile-page { display: none; background: white; padding: 25px; border-radius: 20px; margin-top: 20px; }
         .setting-item { margin-bottom: 20px; }
-        select { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; background: #f9f9f9; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        select { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; background: #f9f9f9; outline: none; }
         
         /* Менюи поён */
         .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
@@ -48,17 +49,20 @@
     </div>
 
     <div id="profile-page">
-        <h2 id="profile-title" style="text-align: center;">👤 Танзимот</h2>
+        <h2 id="profile-title" style="text-align: center;">👤 Танзимоти профил</h2>
+        <hr style="opacity: 0.2; margin-bottom: 20px;">
+        
         <div class="setting-item">
-            <label id="label-lang">🌐 Забон:</label>
+            <label id="label-lang">🌐 Интихоби забон (3 забон):</label>
             <select id="langSelect" onchange="updateApp()">
                 <option value="tg">Тоҷикӣ</option>
                 <option value="ru">Русский</option>
                 <option value="en">English</option>
             </select>
         </div>
+
         <div class="setting-item">
-            <label id="label-curr">💰 Асъор:</label>
+            <label id="label-curr">💰 Интихоби асъор (4 асъор):</label>
             <select id="currSelect" onchange="updateApp()">
                 <option value="tjs">TJS (Сомонӣ)</option>
                 <option value="rub">RUB (Рубл)</option>
@@ -66,7 +70,11 @@
                 <option value="eur">EUR (Евро)</option>
             </select>
         </div>
-        <p style="text-align: center; color: #999; font-size: 12px;">ID: 511059</p>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="color: #999; font-size: 12px;">API Status: Active</p>
+            <p style="color: #999; font-size: 12px;">Marker ID: 511059</p>
+        </div>
     </div>
 </div>
 
@@ -76,6 +84,9 @@
 </div>
 
 <script>
+    // МАРКЕРИ ХУДРО ДАР ИН ҶО ГУЗОРЕД
+    const MY_MARKER = "701004"; 
+
     const langData = {
         tg: { title: "Traveler.tj", sub: "Чиптаҳои арзон ва ҳақиқӣ", search: "✈️ Ҷустуҷӯи чиптаҳо", res: "📊 Натиҷаҳои парвоз:", prof: "👤 Танзимот", l: "🌐 Забон:", c: "💰 Асъор:", h: "Асосӣ", p: "Профил", loc: "ru" },
         ru: { title: "Traveler.tj", sub: "Дешевые и реальные билеты", search: "✈️ Поиск билетов", res: "📊 Результаты поиска:", prof: "👤 Настройки", l: "🌐 Язык:", c: "💰 Валюта:", h: "Главная", p: "Профиль", loc: "ru" },
@@ -87,7 +98,7 @@
         const curr = document.getElementById('currSelect').value;
         const d = langData[lang];
 
-        // Навсозии матнҳо
+        // Навсозии матнҳои интерфейс
         document.getElementById('site-title').innerText = d.title;
         document.getElementById('site-subtitle').innerText = d.sub;
         document.getElementById('search-title').innerText = d.search;
@@ -98,24 +109,25 @@
         document.getElementById('nav-home').innerText = d.h;
         document.getElementById('nav-profile').innerText = d.p;
 
-        // Боркунии виҷетҳои чиптаҳо
+        // Навсозии виҷетҳо бо API
         renderWidgets(d.loc, curr);
     }
 
     function renderWidgets(locale, currency) {
-        const marker = "511059";
         const searchBox = document.getElementById('search-widget-box');
         const resultsBox = document.getElementById('results-widget-box');
 
         searchBox.innerHTML = ''; 
         resultsBox.innerHTML = '';
 
+        // Виҷети Ҷустуҷӯ
         const s1 = document.createElement('script');
-        s1.src = `https://tp.media/content?currency=${currency}&promo_id=4118&shmarker=${marker}&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${locale}&id=avia_search`;
+        s1.src = `https://tp.media/content?currency=${currency}&promo_id=4118&shmarker=${MY_MARKER}&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${locale}&id=avia_search`;
         searchBox.appendChild(s1);
 
+        // Виҷети Натиҷаҳо (Чиптаҳоро дар ҳамон экран нишон медиҳад)
         const s2 = document.createElement('script');
-        s2.src = `https://tp.media/content?currency=${currency}&promo_id=4118&shmarker=${marker}&type=results&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${locale}&id=results_details`;
+        s2.src = `https://tp.media/content?currency=${currency}&promo_id=4118&shmarker=${MY_MARKER}&type=results&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${locale}&id=results_details`;
         resultsBox.appendChild(s2);
     }
 
