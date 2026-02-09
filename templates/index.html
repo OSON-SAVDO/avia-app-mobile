@@ -5,63 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Traveler.tj — Ҷустуҷӯи чиптаҳо</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f0f2f5; padding-bottom: 30px; }
-        header { background: #0073ff; color: white; padding: 25px 15px; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .container { padding: 15px; max-width: 500px; margin: auto; }
-        .search-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: -20px; }
-        h2 { font-size: 20px; color: #333; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-size: 14px; color: #666; margin-bottom: 5px; margin-left: 5px; }
-        input { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 16px; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus { border-color: #0073ff; box-shadow: 0 0 5px rgba(0,115,255,0.2); }
-        
-        .btn-search { width: 100%; padding: 18px; background: #0073ff; color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        .btn-search:active { transform: scale(0.98); background: #0056b3; }
-        
-        .footer-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; }
-        .nav-item { text-align: center; font-size: 12px; color: #777; flex: 1; cursor: pointer; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f0f2f5; padding-bottom: 80px; }
+        header { background: linear-gradient(135deg, #0073ff, #0056b3); color: white; padding: 25px 15px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; }
+        .container { max-width: 600px; margin: 0 auto; padding: 15px; }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: -30px; margin-bottom: 25px; }
+        .results-card { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { font-size: 18px; color: #333; margin-top: 0; margin-bottom: 15px; border-left: 4px solid #0073ff; padding-left: 10px; }
+        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
+        .nav-item { text-align: center; font-size: 12px; color: #666; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0; font-size: 24px;">Traveler.tj</h1>
-    <p style="margin:5px 0 0; opacity: 0.8; font-size: 14px;">Чиптаҳои арзон ва ҳақиқӣ</p>
+    <h1 style="margin:0; font-size: 26px;">Traveler.tj</h1>
+    <p style="margin:5px 0 0; opacity: 0.9; font-size: 14px;">Чиптаҳои арзон ва ҳақиқӣ</p>
 </header>
 
 <div class="container">
-    <div class="search-card">
-        <h2>✈️ Ҷустуҷӯи чиптаҳо</h2>
-        
-        <form action="https://www.jetradar.com/flights/" method="get" target="_blank">
-            <input type="hidden" name="marker" value="511059">
-            
-            <div class="input-group">
-                <label>Аз куҷо (масалан, DYU):</label>
-                <input type="text" name="origin" placeholder="Душанбе" required>
-            </div>
+    <div class="card">
+        <h2>✈️ Ҷустуҷӯи чипта</h2>
+        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=701004&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=avia_search"></script>
+    </div>
 
-            <div class="input-group">
-                <label>Ба куҷо (масалан, MOW):</label>
-                <input type="text" name="destination" placeholder="Москва" required>
-            </div>
-
-            <button type="submit" class="btn-search">ҶУСТУҶӮ КАРДАН</button>
-        </form>
+    <div class="results-card">
+        <h2>📊 Натиҷаҳои парвоз</h2>
+        <p style="font-size: 12px; color: #888; margin-bottom: 10px;">Бағоҷ ва вақти парвоз дар зер нишон дода мешавад:</p>
+        <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=701004&type=results&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=results_main"></script>
     </div>
 </div>
 
-<div class="footer-nav">
+<div class="nav">
     <div class="nav-item" onclick="location.reload()">🏠<br>Асосӣ</div>
-    <div class="nav-item" onclick="alert('API Key ва Маркер фаъоланд')">👤 Профил</div>
+    <div class="nav-item" onclick="alert('Маркер: 701004')">👤<br>Профил</div>
 </div>
-
-<script>
-    // Танзимоти шумо
-    const API_KEY = "71876b59812fee6e1539f9365e6a12dd";
-    const MARKER = "701004";
-</script>
 
 </body>
 </html>
