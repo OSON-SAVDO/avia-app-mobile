@@ -1,14 +1,16 @@
-from flask import Flask, render_template, os
+import os
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# 1. ТОКЕНИ ХУДРО ДАР ИН ҶО ГУЗОРЕД
+# --- МАРКЕР ВА ТОКЕНРО ТАНҲО ДАР ИН ҶО МОНЕД ---
+MARKER = "701004" 
 API_TOKEN = "71876b59812fee6e1539f9365e6a12dd"
-# 2. МАРКЕРИ ХУДРО ДАР ИН ҶО ГУЗОРЕД
-MARKER = "701004"
+# --------------------------------------------
 
 @app.route('/')
 def index():
+    # Мо маркерро ба index.html мефиристем
     return render_template('index.html', marker=MARKER)
 
 if __name__ == '__main__':
