@@ -5,74 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Traveler.tj</title>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: #f0f2f5; }
-        header { background: #0073ff; color: white; padding: 20px 15px; text-align: center; border-radius: 0 0 20px 20px; }
+        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: #f0f2f5; padding-bottom: 80px; }
+        header { background: #0073ff; color: white; padding: 20px 15px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .container { padding: 15px; max-width: 500px; margin: auto; }
-        
-        /* Дизайн маҳз мисли акси 43204.jpg */
-        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: -30px; }
-        .results-card { background: white; padding: 15px; border-radius: 20px; margin-top: 20px; min-height: 200px; }
-        
-        /* Стили Профил (Танзимот) */
-        #profile-page { display: none; background: white; padding: 20px; border-radius: 20px; margin-top: 20px; }
-        .setting-item { margin-bottom: 20px; }
-        select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; }
-
-        /* Менюи поён */
-        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; }
-        .nav-item { text-align: center; font-size: 12px; color: #666; flex: 1; cursor: pointer; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: -30px; margin-bottom: 20px; }
+        .results-card { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); min-height: 200px; }
+        #profile-page { display: none; background: white; padding: 25px; border-radius: 20px; margin-top: 20px; }
+        .setting-item { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #444; }
+        select { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; background: #fafafa; }
+        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
+        .nav-item { text-align: center; font-size: 13px; color: #666; flex: 1; cursor: pointer; transition: 0.3s; }
         .active { color: #0073ff; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header id="main-header">
-    <h1 style="margin:0; font-size: 24px;">Traveler.tj</h1>
-    <p style="margin:5px 0; font-size: 13px; opacity: 0.9;">Чиптаҳои арзон ва ҳақиқӣ</p>
+<header>
+    <h1 id="site-title">Traveler.tj</h1>
+    <p id="site-subtitle">Чиптаҳои арзон ва ҳақиқӣ</p>
 </header>
 
 <div class="container">
     <div id="home-page">
         <div class="card">
-            <h2 style="font-size: 19px;">✈️ Ҷустуҷӯи чиптаҳо</h2>
-            <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=511059&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=avia_search"></script>
+            <h2 id="search-title">✈️ Ҷустуҷӯи чиптаҳо</h2>
+            <div id="widget-container">
+                </div>
         </div>
         <div class="results-card">
-            <h2 style="font-size: 17px;">📊 Натиҷаҳои ҷустуҷӯ:</h2>
-            <script charset="utf-8" src="https://tp.media/content?currency=usd&promo_id=4118&shmarker=511059&type=results&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=ru&id=results_details"></script>
+            <h2 id="results-title">📊 Натиҷаҳои ҷустуҷӯ:</h2>
+            <div id="results-container">
+                </div>
         </div>
     </div>
 
     <div id="profile-page">
-        <h2 style="text-align: center;">👤 Танзимоти профил</h2>
-        <hr>
+        <h2 id="profile-title" style="text-align: center;">👤 Танзимот</h2>
         <div class="setting-item">
-            <label>🌐 Интихоби забон:</label>
-            <select id="lang">
+            <label id="label-lang">🌐 Интихоби забон:</label>
+            <select id="langSelect" onchange="changeAppLanguage()">
                 <option value="tg">Тоҷикӣ</option>
                 <option value="ru">Русский</option>
                 <option value="en">English</option>
             </select>
         </div>
         <div class="setting-item">
-            <label>💰 Интихоби асъор:</label>
-            <select id="currency">
-                <option value="tjs">TJS (Сомонӣ)</option>
-                <option value="rub">RUB (Рубл)</option>
-                <option value="usd">USD (Доллар)</option>
-                <option value="eur">EUR (Евро)</option>
+            <label id="label-curr">💰 Интихоби асъор:</label>
+            <select id="currSelect" onchange="changeAppLanguage()">
+                <option value="tjs">TJS</option>
+                <option value="rub">RUB</option>
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
             </select>
         </div>
-        <p style="font-size: 12px; color: #888;">ID-и шумо: 511059</p>
     </div>
 </div>
 
 <div class="nav">
-    <div class="nav-item active" id="btn-home" onclick="showPage('home')">🏠<br>Асосӣ</div>
-    <div class="nav-item" id="btn-profile" onclick="showPage('profile')">👤<br>Профил</div>
+    <div class="nav-item active" id="btn-home" onclick="showPage('home')">🏠<br><span id="nav-home">Асосӣ</span></div>
+    <div class="nav-item" id="btn-profile" onclick="showPage('profile')">👤<br><span id="nav-profile">Профил</span></div>
 </div>
 
 <script>
+    const translations = {
+        tg: { title: "Traveler.tj", subtitle: "Чиптаҳои арзон ва ҳақиқӣ", search: "✈️ Ҷустуҷӯи чиптаҳо", results: "📊 Натиҷаҳои ҷустуҷӯ:", profile: "👤 Танзимот", lang: "🌐 Интихоби забон:", curr: "💰 Интихоби асъор:", home: "Асосӣ", prof: "Профил", locale: "ru" },
+        ru: { title: "Traveler.tj", subtitle: "Дешевые и реальные билеты", search: "✈️ Поиск билетов", results: "📊 Результаты поиска:", profile: "👤 Настройки", lang: "🌐 Выбор языка:", curr: "💰 Выбор валюты:", home: "Главная", prof: "Профиль", locale: "ru" },
+        en: { title: "Traveler.tj", subtitle: "Cheap and real tickets", search: "✈️ Flight Search", results: "📊 Search Results:", profile: "👤 Settings", lang: "🌐 Select Language:", curr: "💰 Select Currency:", home: "Home", prof: "Profile", locale: "en" }
+    };
+
+    function changeAppLanguage() {
+        const lang = document.getElementById('langSelect').value;
+        const curr = document.getElementById('currSelect').value;
+        const t = translations[lang];
+
+        // Иваз кардани матнҳои сайт
+        document.getElementById('site-title').innerText = t.title;
+        document.getElementById('site-subtitle').innerText = t.subtitle;
+        document.getElementById('search-title').innerText = t.search;
+        document.getElementById('results-title').innerText = t.results;
+        document.getElementById('profile-title').innerText = t.profile;
+        document.getElementById('label-lang').innerText = t.lang;
+        document.getElementById('label-curr').innerText = t.curr;
+        document.getElementById('nav-home').innerText = t.home;
+        document.getElementById('nav-profile').innerText = t.prof;
+
+        // Навсозии Виҷетҳо бо забон ва асъори нав
+        loadWidgets(t.locale, curr);
+    }
+
+    function loadWidgets(locale, currency) {
+        const marker = "511059";
+        
+        // Тоза кардани контейнерҳо
+        document.getElementById('widget-container').innerHTML = '';
+        document.getElementById('results-container').innerHTML = '';
+
+        // Сохтани скриптҳои нав
+        const s1 = document.createElement('script');
+        s1.src = `https://tp.media/content?currency=${currency}&promo_id=4118&shmarker=${marker}&type=search_widget&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${locale}&id=avia_search`;
+        document.getElementById('widget-container').appendChild(s1);
+
+        const s2 = document.createElement('script');
+        s2.src = `https://tp.media/content?currency=${currency}&promo_id=4118&shmarker=${marker}&type=results&scope=flights&powered_by=false&search_host=www.jetradar.com&locale=${locale}&id=results_details`;
+        document.getElementById('results-container').appendChild(s2);
+    }
+
     function showPage(page) {
         if(page === 'home') {
             document.getElementById('home-page').style.display = 'block';
@@ -86,6 +124,9 @@
             document.getElementById('btn-profile').classList.add('active');
         }
     }
+
+    // Бори аввал бор кардан
+    window.onload = changeAppLanguage;
 </script>
 
 </body>
